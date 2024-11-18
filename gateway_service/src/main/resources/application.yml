@@ -1,0 +1,127 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      enabled: false
+    discovery:
+      enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        # Event Service Routes
+        - id: event-service-create-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/create
+            - Method=POST
+        - id: event-service-get-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/{id}
+            - Method=GET
+        - id: event-service-details-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/{id}/details
+            - Method=GET
+        - id: event-service-list-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/all-details
+            - Method=GET
+        - id: event-service-delete-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/{id}
+            - Method=DELETE
+        - id: event-service-between-dates-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/between
+            - Method=GET
+        - id: event-service-filter-by-date-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/filterByDate/{day}
+            - Method=GET
+        - id: event-service-filter-by-category-and-date-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/filterByCategoryAndDate
+            - Method=GET
+
+        # SportCategory Service Routes
+        - id: category-service-get-categories
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/categories/getCategories
+            - Method=GET
+        - id: category-service-get-events-by-category
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/categories/events/{categoryName}
+            - Method=GET
+        - id: category-service-create-category
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/categories/create
+            - Method=POST
+        - id: category-service-update-category
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/categories/update/{id}
+            - Method=PUT
+        - id: category-service-delete-category
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/categories/delete/{id}
+            - Method=DELETE
+
+        # Geolocation Routes
+        - id: geolocation-service-create-location
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/locations/create
+            - Method=POST
+        - id: geolocation-service-create-multiple-locations
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/locations/multiple
+            - Method=POST
+        - id: geolocation-service-get-locations
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/locations/getLocations
+            - Method=GET
+        - id: geolocation-service-get-location-by-id
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/locations/getLocation/{id}
+            - Method=GET
+        - id: geolocation-service-create-route
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/routes/create
+            - Method=POST
+        - id: geolocation-service-get-routes
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/routes/getRoutes
+            - Method=GET
+        - id: geolocation-service-get-route-by-id
+          uri: lb://geolocalisation-service
+          predicates:
+            - Path=/geolocalisation-service/api/routes/{id}
+            - Method=GET
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

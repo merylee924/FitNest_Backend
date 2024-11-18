@@ -1,9 +1,13 @@
 package org.ilisi.geolocalisation_service.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ilisi.geolocalisation_service.dtos.RouteDto;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
@@ -21,6 +25,7 @@ public class Route {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonIgnore
     @Column(columnDefinition = "GEOGRAPHY(LineString, 4326)")
     private LineString path;
 
@@ -52,4 +57,18 @@ public class Route {
                 .map(coord -> List.of(coord.getY(), coord.getX())) // latitude (y), longitude (x)
                 .collect(Collectors.toList());
     }
+    public RouteDto toDto() {
+        RouteDto dto = new RouteDto();
+        dto.setId(this.id);
+        dto.setCoordinates(this.getCoordinatesFromPath());
+        return dto;
+    }
+
+    public static Route fromDto(RouteDto dto) {
+        Route route = new Route();
+        route.setId(dto.getId());
+        route.setPathFromCoordinates(dto.getCoordinates());
+        return route;
+    }
+
 }

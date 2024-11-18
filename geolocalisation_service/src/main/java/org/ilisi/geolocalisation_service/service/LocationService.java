@@ -66,7 +66,7 @@ public class LocationService {
     public LocationDto convertToDto(Location location) {
         Double latitude = location.getLatitude();
         Double longitude = location.getLongitude();
-        return new LocationDto(location.getLocationName(), latitude, longitude);
+        return new LocationDto(location.getId(),location.getLocationName(), latitude, longitude);
     }
 
 }

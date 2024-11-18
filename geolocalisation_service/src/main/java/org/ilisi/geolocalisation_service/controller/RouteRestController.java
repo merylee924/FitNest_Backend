@@ -1,5 +1,6 @@
 package org.ilisi.geolocalisation_service.controller;
 
+import org.ilisi.geolocalisation_service.dtos.RouteDto;
 import org.ilisi.geolocalisation_service.entities.Route;
 import org.ilisi.geolocalisation_service.service.RouteService;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/routes")
@@ -19,24 +21,30 @@ public class RouteRestController {
         this.routeService = routeService;
     }
 
-    @GetMapping
-    public List<Route> getAllRoutes() {
-        return routeService.getAllRoutes();
+    @GetMapping("/getRoutes")
+    public List<RouteDto> getAllRoutes() {
+        return routeService.getAllRoutes()
+                .stream()
+                .map(Route::toDto)
+                .collect(Collectors.toList());
     }
+
+
+
+    @PostMapping("/create")
+    public ResponseEntity<RouteDto> createRoute(@RequestBody RouteDto routeDto) {
+        Route route = Route.fromDto(routeDto);
+        Route savedRoute = routeService.saveRoute(route);
+        return ResponseEntity.ok(savedRoute.toDto());
+    }
+
 
     @GetMapping("/{id}")
-    public ResponseEntity<Route> getRouteById(@PathVariable Long id) {
+    public ResponseEntity<RouteDto> getRouteById(@PathVariable Long id) {
         Optional<Route> route = routeService.getRouteById(id);
-        return route.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return route.map(r -> ResponseEntity.ok(r.toDto())).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Route> createRoute(@RequestBody List<List<Double>> coordinatesList) {
-        Route route = new Route();
-        route.setPathFromCoordinates(coordinatesList);
-        Route savedRoute = routeService.saveRoute(route);
-        return ResponseEntity.ok(savedRoute);
-    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRoute(@PathVariable Long id) {
