@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@CrossOrigin(origins = "http://192.168.1.94")
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
@@ -25,8 +26,7 @@ public class EventController {
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
-
-    @PostMapping("/create")
+    @PostMapping("/createEvent")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         try {
             Event createdEvent = eventService.createEvent(event);
@@ -69,9 +69,8 @@ public class EventController {
     }
 
 
-
     @GetMapping("/filterByDate/{filter}")
-    public ResponseEntity<List<EventDto>> getEventsByDateFilter(@PathVariable String filter) {
+    public ResponseEntity<List<Event>> getEventsByDateFilter(@PathVariable String filter) {
         List<Event> events;
         switch (filter.toLowerCase()) {
             case "today":
@@ -89,14 +88,13 @@ public class EventController {
             default:
                 return ResponseEntity.badRequest().build();
         }
-        List<EventDto> eventDtos = events.stream().map(Event::toDto).collect(Collectors.toList());
-        return ResponseEntity.ok(eventDtos);
+        return ResponseEntity.ok(events);
     }
 
-    @GetMapping("/filterByCategoryAndDate")
-    public ResponseEntity<List<EventDto>> getEventsByCategoryAndDateFilter(
-            @RequestParam("categoryName") String categoryName,
-            @RequestParam("filter") String filter) {
+    @GetMapping("/filterByCategoryAndDate/{categoryName}/{filter}")
+    public ResponseEntity<List<Event>> getEventsByCategoryAndDateFilter(
+            @PathVariable("categoryName") String categoryName,
+            @PathVariable("filter") String filter) {
 
         List<Event> eventsByCategory = eventService.getEventsByCategoryName(categoryName);
         List<Event> filteredEvents;
@@ -124,9 +122,19 @@ public class EventController {
             default:
                 return ResponseEntity.badRequest().build();
         }
-        List<EventDto> eventDtos = filteredEvents.stream()
-                .map(Event::toDto)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(eventDtos);
+
+        return ResponseEntity.ok(filteredEvents);
+    }
+    @GetMapping("/byPartOfDay/{partOfDay}")
+    public ResponseEntity<List<Event>> getEventsByPartOfDay(@PathVariable String partOfDay) {
+        try {
+            List<Event> events = eventService.findEventsByPartOfDay(partOfDay);
+            return ResponseEntity.ok(events);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
     }
 }

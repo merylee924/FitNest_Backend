@@ -20,6 +20,7 @@
         <option value="$PROJECT_DIR$/gateway_service/pom.xml" />
         <option value="$PROJECT_DIR$/event_service/pom.xml" />
         <option value="$PROJECT_DIR$/geolocalisation_service/pom.xml" />
+        <option value="$USER_HOME$/Documents/Fitnest_Project/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

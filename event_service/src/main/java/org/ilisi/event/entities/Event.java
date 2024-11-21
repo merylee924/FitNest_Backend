@@ -1,7 +1,6 @@
 package org.ilisi.event.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.ilisi.event.dtos.EventDto;
 import org.ilisi.event.model.Location;
 import org.ilisi.event.model.Route;
-import org.ilisi.event.service.LocalTimeDeserializer;
+import org.ilisi.event.model.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -51,12 +50,17 @@ public class Event {
     @Transient
     private Route route;
 
+    @Transient
+    private User user;
+
+    private Long organizerId;
+
     private Long locationId;
     private Long routeId;
 
     public Event(String name, String description, LocalDate startDate, LocalDate endDate,
                  LocalTime startTime, Long locationId, String imagePath,
-                 Long routeId, SportCategory sportCategory) {
+                 Long routeId, SportCategory sportCategory, Long organizerId) {
         this.name = name;
         this.description = description;
         this.startDate = startDate;
@@ -66,6 +70,7 @@ public class Event {
         this.routeId = routeId;
         this.sportCategory = sportCategory;
         this.imagePath = imagePath;
+        this.organizerId = organizerId;
     }
 
     public EventDto toDto() {
@@ -90,6 +95,7 @@ public class Event {
             eventDto.setSportCategoryName("Non spécifié");
         }
 
+        eventDto.setOrganizerId(this.organizerId);
         return eventDto;
     }
 }

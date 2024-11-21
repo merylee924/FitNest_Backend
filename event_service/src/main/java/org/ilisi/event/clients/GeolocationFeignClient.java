@@ -14,7 +14,6 @@ public interface GeolocationFeignClient {
     @GetMapping("/locations/{locationId}")
     Location getLocationById(@PathVariable("locationId") Long locationId);
 
-
     @GetMapping("/routes/{routeId}")
     Route getRouteById(@PathVariable("routeId") Long routeId);
 

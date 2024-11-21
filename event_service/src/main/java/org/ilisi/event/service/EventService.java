@@ -1,5 +1,6 @@
 package org.ilisi.event.service;
 
+import org.ilisi.event.clients.AuthServiceFeignClient;
 import org.ilisi.event.clients.GeolocationFeignClient;
 import org.ilisi.event.entities.Event;
 import org.ilisi.event.entities.SportCategory;
@@ -26,24 +27,32 @@ public class EventService {
     private final EventRepository eventRepository;
     private final SportCategoryRepository sportCategoryRepository;
     private final GeolocationFeignClient geoFeignClient;
+    private final AuthServiceFeignClient authServiceClient;
+
 
     @Autowired
-    public EventService(EventRepository eventRepository, SportCategoryRepository sportCategoryRepository, GeolocationFeignClient geoFeignClient) {
+    public EventService(EventRepository eventRepository, SportCategoryRepository sportCategoryRepository, GeolocationFeignClient geoFeignClient, AuthServiceFeignClient authServiceClient) {
         this.eventRepository = eventRepository;
         this.sportCategoryRepository = sportCategoryRepository;
         this.geoFeignClient = geoFeignClient;
+        this.authServiceClient = authServiceClient;
     }
 
     public Event createEvent(Event event) {
         SportCategory sportCategory = getSportCategoryById(event.getSportCategory().getId());
         event.setSportCategory(sportCategory);
-
         if (sportCategory.isRequiresRoute()) {
             event = handleRoute(event);
         } else {
             event = handleLocation(event);
         }
-
+       if (event.getOrganizerId() != null) {
+            try {
+                event.setUser(authServiceClient.getUserById(event.getOrganizerId()));
+            } catch (Exception e) {
+                throw new RuntimeException("Impossible de récupérer les informations de l'organisateur : " + e.getMessage());
+            }
+        }
         return eventRepository.save(event);
     }
 
@@ -161,7 +170,6 @@ public class EventService {
         events.forEach(event -> {
             SportCategory sportCategory = getSportCategoryById(event.getSportCategory().getId());
             event.setSportCategory(sportCategory);
-
             if (sportCategory.isRequiresRoute()) {
                 handleRoute(event);
             } else {
@@ -175,7 +183,6 @@ public class EventService {
         List<Event> events = eventRepository.findAll();
         return enrichEventsWithDetails(events);
     }
-
     public Event getEventWithDetails(Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new RuntimeException("Event not found with id: " + eventId));
@@ -184,6 +191,7 @@ public class EventService {
         event.setSportCategory(sportCategory);
 
         if (sportCategory.isRequiresRoute()) {
+            System.out.println("yess");
             event = handleRoute(event);
         } else {
             event = handleLocation(event);

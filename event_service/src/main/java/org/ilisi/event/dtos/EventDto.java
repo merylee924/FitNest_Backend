@@ -21,12 +21,14 @@ public class EventDto {
     private String imagePath;
     private Long sportCategoryId;
     private String sportCategoryName;
-    private String cityName; // Nouveau champ pour le nom de la ville
+    private String cityName;
     private double latitude;
     private double longitude;
-    private Long LocationId;
-    private Long RouteId;
+    private Long locationId;
+    private Long routeId;
     private List<double[]> routeCoordinates;
+    private Long organizerId;
 
-
+    private String organizerFirstName;
+    private String organizerLastName;
 }
