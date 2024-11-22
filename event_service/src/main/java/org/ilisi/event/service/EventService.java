@@ -191,12 +191,15 @@ public class EventService {
         event.setSportCategory(sportCategory);
 
         if (sportCategory.isRequiresRoute()) {
-            System.out.println("yess");
             event = handleRoute(event);
         } else {
             event = handleLocation(event);
         }
 
         return event;
+    }
+    public List<Event> getEventsByUserId(Long userId) {
+        List<Event> event = eventRepository.findByOrganizerId(userId);
+        return enrichEventsWithDetails(event);
     }
 }

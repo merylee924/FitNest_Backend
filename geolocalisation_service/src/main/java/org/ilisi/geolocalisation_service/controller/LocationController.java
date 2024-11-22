@@ -26,7 +26,6 @@ public class LocationController {
         LocationDto savedLocation = locationService.saveLocation(locationDto);
         return ResponseEntity.ok(savedLocation);
     }
-
     // Créer plusieurs locations
     @PostMapping("/multiple")
     public ResponseEntity<List<LocationDto>> createMultipleLocations(@RequestBody List<LocationDto> locationDTOs) {

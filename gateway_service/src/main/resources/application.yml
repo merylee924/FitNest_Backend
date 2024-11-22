@@ -16,7 +16,7 @@ spring:
         - id: event-service-create-route
           uri: lb://event-service
           predicates:
-            - Path=/event-service/api/events/create
+            - Path=/event-service/api/events/createEvent
             - Method=POST
         - id: event-service-get-route
           uri: lb://event-service
@@ -52,6 +52,11 @@ spring:
           uri: lb://event-service
           predicates:
             - Path=/event-service/api/events/filterByCategoryAndDate/{categoryName}/{filter}
+            - Method=GET
+        - id: event-service-event-user
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/user/{userId}/events
             - Method=GET
 
         # SportCategory Service Routes
@@ -183,8 +188,10 @@ spring:
               - Path=/account/all
               - Method=GET
 
+
 server:
   port: 8888
+  address: 0.0.0.0
 
 eureka:
   client:

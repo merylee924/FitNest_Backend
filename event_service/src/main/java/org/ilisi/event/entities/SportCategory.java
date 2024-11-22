@@ -13,7 +13,6 @@ public class SportCategory {
 
     private String name;
 
-    private String iconPath;
     @Column(columnDefinition = "boolean default false")
     private boolean requiresRoute = false;
     private String iconName;
