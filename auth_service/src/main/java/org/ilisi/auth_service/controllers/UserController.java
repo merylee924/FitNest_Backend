@@ -1,12 +1,8 @@
 package org.ilisi.auth_service.controllers;
 
-import org.ilisi.auth_service.clients.EventFeignClient;
-import org.ilisi.auth_service.dto.EventDto;
 import org.ilisi.auth_service.dto.UserDto;
 import org.ilisi.auth_service.entities.User;
 import org.ilisi.auth_service.services.IUserService; // Import de l'interface
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,7 +19,6 @@ import java.util.Optional;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
-    private  EventFeignClient eventFeignClient;
 
     private IUserService userService; // Utilisation de l'interface
 
@@ -70,15 +65,6 @@ public class UserController {
         Optional<String> username = userService.getUserNameById(userId);
         return username.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-    @GetMapping("/{userId}/events")
-    public ResponseEntity<List<EventDto>> getUserEvents(@PathVariable Long userId) {
-        try {
-            List<EventDto> events = eventFeignClient.getEventsByUserId(userId);
-            return ResponseEntity.ok(events);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
-        }
     }
 
     @Nullable

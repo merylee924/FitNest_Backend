@@ -10,14 +10,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private JwtAuthFilter jwtAuthFilter;
-    private AuthenticationProvider authenticationProvider;
+    private final JwtAuthFilter jwtAuthFilter;
+    private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -26,7 +25,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
-                        .requestMatchers("/api/events/create").permitAll()// This allows access to /user/5 without authentication
+                        .requestMatchers("/api/events/create").permitAll() // This allows access to /api/events/create without authentication
                         .anyRequest().authenticated()  // All other requests require authentication
                 )
                 .sessionManagement(session -> session
