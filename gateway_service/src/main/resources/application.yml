@@ -58,6 +58,11 @@ spring:
           predicates:
             - Path=/event-service/api/events/user/{userId}/events
             - Method=GET
+        - id: event-service-filter-partDay
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/byPartOfDay/{partOfDay}
+            - Method=GET
 
         # SportCategory Service Routes
         - id: category-service-get-categories
