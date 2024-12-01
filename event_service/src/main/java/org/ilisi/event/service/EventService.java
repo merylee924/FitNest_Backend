@@ -2,6 +2,7 @@ package org.ilisi.event.service;
 
 import org.ilisi.event.clients.AuthServiceFeignClient;
 import org.ilisi.event.clients.GeolocationFeignClient;
+import org.ilisi.event.dtos.EventDto;
 import org.ilisi.event.entities.Event;
 import org.ilisi.event.entities.SportCategory;
 import org.ilisi.event.exceptions.LocationNotFoundException;
@@ -155,6 +156,7 @@ public class EventService {
                 endTime = LocalTime.of(20, 59);
                 break;
             case "night":
+                // Gestion spéciale pour deux plages horaires pour la nuit
                 events = eventRepository.findByTimeRange(LocalTime.of(21, 0), LocalTime.of(23, 59));
                 events.addAll(eventRepository.findByTimeRange(LocalTime.of(0, 0), LocalTime.of(4, 59)));
                 return enrichEventsWithDetails(events);
@@ -165,6 +167,7 @@ public class EventService {
         events = eventRepository.findByTimeRange(startTime, endTime);
         return enrichEventsWithDetails(events);
     }
+
 
     private List<Event> enrichEventsWithDetails(List<Event> events) {
         events.forEach(event -> {
