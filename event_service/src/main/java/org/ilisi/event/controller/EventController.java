@@ -1,5 +1,6 @@
 package org.ilisi.event.controller;
 
+import org.ilisi.event.dtos.EventDto;
 import org.ilisi.event.entities.Event;
 import org.ilisi.event.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,7 +134,8 @@ public class EventController {
             return ResponseEntity.status(500).body(null);
         }
     }
-        @GetMapping("/user/{userId}/events")
+
+    @GetMapping("/user/{userId}/events")
         public List<Event> getEventsByUserId(@PathVariable Long userId) {
             return eventService.getEventsByUserId(userId);
         }

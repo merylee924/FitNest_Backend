@@ -17,6 +17,4 @@ public class SportCategory {
     private boolean requiresRoute = false;
     private String iconName;
 
-
-
 }
