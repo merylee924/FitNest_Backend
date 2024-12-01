@@ -1,7 +1,7 @@
 package org.ilisi.auth_service.services.ImplServices;
 
-import org.ilisi.auth_service.Repos.AccountRepo;
-import org.ilisi.auth_service.Repos.UserRepo;
+import org.ilisi.auth_service.repos.AccountRepo;
+import org.ilisi.auth_service.repos.UserRepo;
 import org.ilisi.auth_service.dto.UserDto;
 import org.ilisi.auth_service.entities.Account;
 import org.ilisi.auth_service.entities.User;

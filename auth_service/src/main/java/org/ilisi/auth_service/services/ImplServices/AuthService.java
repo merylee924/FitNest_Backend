@@ -1,8 +1,8 @@
 package org.ilisi.auth_service.services.ImplServices;
 
 
-import org.ilisi.auth_service.Repos.AccountRepo;
-import org.ilisi.auth_service.Repos.UserRepo;
+import org.ilisi.auth_service.repos.AccountRepo;
+import org.ilisi.auth_service.repos.UserRepo;
 import org.ilisi.auth_service.dto.AuthenticationResponse;
 import org.ilisi.auth_service.dto.AuthenticationRequest;
 import org.ilisi.auth_service.dto.RegisterRequest;
@@ -10,7 +10,6 @@ import org.ilisi.auth_service.entities.Account;
 import org.ilisi.auth_service.entities.User;
 import org.ilisi.auth_service.exceptions.UserAlreadyExistsException;
 import org.ilisi.auth_service.services.IAuthService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -25,28 +25,14 @@ public class AuthController {
     @Autowired
     private MailService mailService;
 
-    @GetMapping("/send-test-email")
-    public ResponseEntity<?> sendTestEmail() {
-        String email = "allamouissal007@gmail.com";
-        String token = "jhhhh";
 
-        try {
-            mailService.sendVerificationEmail(email, token);
-            Map<String, String> response = new HashMap<>();
-            response.put("message", "Verification email sent successfully");
-            return ResponseEntity.ok(response);
-        } catch (MessagingException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email: " + e.getMessage());
-        }
-    }
     @PostMapping("/send-verification-email")
     public ResponseEntity<?> sendVerificationEmail(@RequestBody Map<String, String> request) {
         String email = request.get("email");
-        System.out.println(email);
-        String token = "jhhhh";
+        String code = request.get("code");
 
         try {
-            mailService.sendVerificationEmail(email, token);
+            mailService.sendVerificationEmail(email,code);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Verification email sent successfully");
             return ResponseEntity.ok(response);

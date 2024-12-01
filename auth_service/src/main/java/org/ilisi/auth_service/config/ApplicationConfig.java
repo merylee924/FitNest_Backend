@@ -1,6 +1,6 @@
 package org.ilisi.auth_service.config;
 
-import org.ilisi.auth_service.Repos.AccountRepo;
+import org.ilisi.auth_service.repos.AccountRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

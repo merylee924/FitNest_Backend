@@ -15,6 +15,7 @@
         <module>event_service</module>
         <module>discovery_service</module>
         <module>config_service</module>
+        <module>participation_service</module>
     </modules>
 
     <properties>

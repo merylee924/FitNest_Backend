@@ -1,9 +1,8 @@
 package org.ilisi.auth_service.services.ImplServices;
 
-import org.ilisi.auth_service.Repos.AccountRepo;
+import org.ilisi.auth_service.repos.AccountRepo;
 import org.ilisi.auth_service.entities.Account;
 import org.ilisi.auth_service.services.IAccountService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 

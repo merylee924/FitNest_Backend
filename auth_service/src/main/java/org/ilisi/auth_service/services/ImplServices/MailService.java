@@ -25,15 +25,14 @@ public class MailService {
     @Value("${spring.mail.from}")
     private String from;
 
-    public void sendVerificationEmail(String toEmail, String verificationToken) throws MessagingException {
-        String verificationLink = "https://yourapp.com/verify-email?token=" + verificationToken;
+    public void sendVerificationEmail(String toEmail,String code) throws MessagingException {
         String subject = "Verify Your Email Address";
 
         Map<String, Object> variables = Map.of(
-                "verificationLink", verificationLink,
                 "buttonText", "Verify My Email",
                 "headerText", "Confirm Your Email Address",
-                "messageText", "Thank you for signing up on our platform. Please confirm your email address by clicking the button below."
+                "messageText", "Thank you for signing up on our platform. Please confirm your email address by Entering the Verification Code in the application.",
+                "messageText", "Verification Code : "+code
         );
 
         sendTemplateMail(toEmail, subject, "verification-email-template", variables);

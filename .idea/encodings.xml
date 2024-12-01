@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/event_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway_service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/geolocalisation_service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/participation_service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/participation_service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
   </component>

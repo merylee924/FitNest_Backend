@@ -172,6 +172,11 @@ spring:
           predicates:
               - Path=/auth/register
               - Method=POST
+        - id: auth-service-check
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/check
+            - Method=POST
         - id: account-service-get-account-by-id
           uri: lb://auth-service
           predicates:
