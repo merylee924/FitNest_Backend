@@ -5,8 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.ilisi</groupId>
-    <artifactId>banck_account</artifactId>
+    <artifactId>FitNest_Backend</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>auth_service</module>
+        <module>geolocalisation_service</module>
+        <module>gateway_service</module>
+        <module>event_service</module>
+        <module>discovery_service</module>
+        <module>config_service</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

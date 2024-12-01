@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.ilisi</groupId>
-    <artifactId>gatewayy_service</artifactId>
+    <artifactId>gateway_service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>gatewayy_service</name>
-    <description>gatewayy_service</description>
+    <name>gateway_service</name>
+    <description>gateway_service</description>
     <url/>
     <licenses>
         <license/>
