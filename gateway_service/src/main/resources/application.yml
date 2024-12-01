@@ -26,8 +26,8 @@ spring:
         - id: event-service-details-route
           uri: lb://event-service
           predicates:
-            - Path=/event-service/api/events/{id}/details
-            - Method=GET
+              - Path=/event-service/api/events/{id}/details
+              - Method=GET
         - id: event-service-list-route
           uri: lb://event-service
           predicates:
@@ -63,6 +63,16 @@ spring:
           predicates:
             - Path=/event-service/api/events/byPartOfDay/{partOfDay}
             - Method=GET
+        - id: event-service-increment-participant
+          uri: lb://event-service
+          predicates:
+          - Path=/event-service/api/events/{id}/increment-participants
+          - Method=PUT
+        - id: event-service-decrement-participant
+          uri: lb://event-service
+          predicates:
+              - Path=/event-service/api/events/{id}/decrement-participants
+              - Method=PUT
 
         # SportCategory Service Routes
         - id: category-service-get-categories
@@ -197,6 +207,31 @@ spring:
           predicates:
               - Path=/account/all
               - Method=GET
+        - id: participation-service-create
+          uri: lb://participation-service
+          predicates:
+            - Path=/api/participations/createParticipation
+            - Method=POST
+        - id: participation-service-get-details-route
+          uri: lb://participation-service
+          predicates:
+            - Path=/api/participations/getDetailParticipation/{id}
+            - Method=GET
+        - id: participation-service-delete-route
+          uri: lb://participation-service
+          predicates:
+                - Path=/api/participations/delete
+                - Method=DELETE
+        - id: participation-service-get-event-by-user
+          uri: lb://participation-service
+          predicates:
+            - Path=/api/participations/user/{userId}/participations
+            - Method=GET
+        - id: participation-service-get-participation-event
+          uri: lb://participation-service
+          predicates:
+            - Path=/api/participations/event/{eventId}
+            - Method=GET
 
 
 server:

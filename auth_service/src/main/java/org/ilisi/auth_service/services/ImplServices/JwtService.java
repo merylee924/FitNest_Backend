@@ -52,6 +52,7 @@ public class JwtService implements IJwtService {
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
 
+
     @Override
     public boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());

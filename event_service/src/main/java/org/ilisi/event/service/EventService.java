@@ -205,4 +205,25 @@ public class EventService {
         List<Event> event = eventRepository.findByOrganizerId(userId);
         return enrichEventsWithDetails(event);
     }
+    public Event incrementParticipants(Long id) {
+        Optional<Event> eventOpt = eventRepository.findById(id);
+        if (eventOpt.isPresent()) {
+            Event event = eventOpt.get();
+            event.setCurrentNumParticipants(event.getCurrentNumParticipants() + 1);  // Increment the count
+            return eventRepository.save(event);
+        } else {
+            throw new IllegalArgumentException("Event not found with id: " + id);
+        }
+    }
+    public Event decrementParticipants(Long id) {
+        Optional<Event> eventOpt = eventRepository.findById(id);
+        if (eventOpt.isPresent()) {
+            Event event = eventOpt.get();
+            event.setCurrentNumParticipants(event.getCurrentNumParticipants() - 1);  // Increment the count
+            return eventRepository.save(event);
+        } else {
+            throw new IllegalArgumentException("Event not found with id: " + id);
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package org.ilisi.auth_service.controllers;
 
+import org.ilisi.auth_service.dto.ErrorResponse;
 import org.ilisi.auth_service.dto.UserDto;
 import org.ilisi.auth_service.entities.User;
 import org.ilisi.auth_service.services.IUserService; // Import de l'interface
@@ -7,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -34,13 +36,13 @@ public class UserController {
         return ResponseEntity.ok(createdUser);
     }
 
-    // Endpoint to get a user by ID
     @GetMapping("/getUserById/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Long userId) {
         Optional<User> user = userService.getUser(userId);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     // Endpoint to get a user's interests
     @GetMapping("/{userId}/interests")

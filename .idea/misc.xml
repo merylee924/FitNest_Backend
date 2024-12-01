@@ -26,6 +26,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/tracking_service/pom.xml" />
         <option value="$PROJECT_DIR$/../Fitnest_Project/pom.xml" />
       </set>
     </option>

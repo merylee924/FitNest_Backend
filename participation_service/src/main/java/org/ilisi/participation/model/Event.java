@@ -1,4 +1,4 @@
-package org.ilisi.participation.entities;
+package org.ilisi.participation.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,7 +12,6 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class Event {
 
     @Id
@@ -24,7 +23,9 @@ public class Event {
     private LocalDate startDate;
     private LocalDate endDate;
     private int maxParticipants;
-    private int currentNumParticipants = 0;  // Nombre actuel de participants
+    private int currentNumParticipants = 0;
     private LocalTime startTime;
     private String imagePath;
+    private Route route;
+    private Location location;
 }

@@ -1,4 +1,4 @@
-package org.ilisi.participation.entities;
+package org.ilisi.participation.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +9,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class User {
 
     @Id
@@ -19,5 +18,5 @@ public class User {
     private String firstName;
     private String lastName;
     private String gender;
-    private String profilePicture;  // Image du profil
+    private String profilePicture;
 }

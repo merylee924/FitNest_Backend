@@ -138,6 +138,33 @@ public class EventController {
     @GetMapping("/user/{userId}/events")
         public List<Event> getEventsByUserId(@PathVariable Long userId) {
             return eventService.getEventsByUserId(userId);
+    }
+    @PutMapping("/{id}/increment-participants")
+    public ResponseEntity<Event> incrementParticipants(@PathVariable("id") Long id) {
+        try {
+            // Call the service method to increment the number of participants
+            Event updatedEvent = eventService.incrementParticipants(id);
+            return ResponseEntity.ok(updatedEvent);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
         }
+    }
+    @PutMapping("/{id}/decrement-participants")
+    public ResponseEntity<Event> DecrementParticipants(@PathVariable("id") Long id) {
+        try {
+            // Call the service method to increment the number of participants
+            Event updatedEvent = eventService.decrementParticipants(id);
+            return ResponseEntity.ok(updatedEvent);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
 }
 
