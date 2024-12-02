@@ -22,11 +22,11 @@
         <option value="$PROJECT_DIR$/geolocalisation_service/pom.xml" />
         <option value="$PROJECT_DIR$/../Fitnest_Project/pom.xml" />
         <option value="$PROJECT_DIR$/geolocalisation_service/tracking_service/pom.xml" />
+        <option value="$PROJECT_DIR$/tracking_service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/tracking_service/pom.xml" />
         <option value="$PROJECT_DIR$/../Fitnest_Project/pom.xml" />
       </set>
     </option>

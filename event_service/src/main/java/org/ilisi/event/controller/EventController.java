@@ -134,7 +134,6 @@ public class EventController {
             return ResponseEntity.status(500).body(null);
         }
     }
-
     @GetMapping("/user/{userId}/events")
         public List<Event> getEventsByUserId(@PathVariable Long userId) {
             return eventService.getEventsByUserId(userId);
@@ -164,6 +163,44 @@ public class EventController {
             e.printStackTrace();
             return ResponseEntity.status(500).body(null);
         }
+    }
+    @GetMapping("/filter/{categoryName}/{filter}/{partDay}")
+    public ResponseEntity<List<Event>> getEventsByCategoryAndDateFilterAndPartDay(
+            @PathVariable("categoryName") String categoryName,
+            @PathVariable("filter") String filter,
+            @PathVariable("partDay") String partDay)
+    {
+
+        List<Event> eventsByCategory = eventService.getEventsByCategoryName(categoryName);
+        List<Event> filteredEvents;
+        switch (filter.toLowerCase()) {
+            case "today":
+                filteredEvents = eventService.getEventsForToday().stream()
+                        .filter(eventsByCategory::contains)
+                        .collect(Collectors.toList());
+                break;
+            case "tomorrow":
+                filteredEvents = eventService.getEventsForTomorrow().stream()
+                        .filter(eventsByCategory::contains)
+                        .collect(Collectors.toList());
+                break;
+            case "thisweek":
+                filteredEvents = eventService.getEventsThisWeek().stream()
+                        .filter(eventsByCategory::contains)
+                        .collect(Collectors.toList());
+                break;
+            case "afterthisweek":
+                filteredEvents = eventService.getEventsAfterThisWeek().stream()
+                        .filter(eventsByCategory::contains)
+                        .collect(Collectors.toList());
+                break;
+            default:
+                return ResponseEntity.badRequest().build();
+        }
+       filteredEvents= eventService.findEventsByPartOfDay(partDay).stream()
+               .filter(filteredEvents::contains)
+               .collect(Collectors.toList());
+        return ResponseEntity.ok(filteredEvents);
     }
 
 }

@@ -27,8 +27,14 @@ public class RouteService {
         return routeRepository.save(route);
     }
 
-
     public void deleteRoute(Long id) {
         routeRepository.deleteById(id);
+    }
+    public Double calculateDistanceToRoute(Long routeId, Double latitude, Double longitude) {
+        Route route = routeRepository.findById(routeId)
+                .orElseThrow(() -> new IllegalArgumentException("Route introuvable"));
+
+        // Appeler la méthode native pour calculer la distance
+        return routeRepository.calculateDistanceToRoute(routeId, latitude, longitude);
     }
 }

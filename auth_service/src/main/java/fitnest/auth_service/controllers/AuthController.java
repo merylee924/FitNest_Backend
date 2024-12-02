@@ -59,7 +59,6 @@ public class AuthController {
     @PostMapping("/check")
     public ResponseEntity<String> checkIfUserOrEmailExists(@RequestBody UserCheckRequest request) {
         try {
-            // Appelle la méthode du service pour vérifier l'existence de l'email et du nom d'utilisateur
             authenticationService.checkIfUserOrEmailExists(request.getEmail(), request.getUsername());
             return ResponseEntity.ok("Email and username are available");
         } catch (UserAlreadyExistsException e) {
