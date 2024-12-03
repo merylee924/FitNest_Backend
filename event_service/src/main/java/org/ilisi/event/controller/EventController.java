@@ -135,9 +135,9 @@ public class EventController {
         }
     }
 
-    @GetMapping("/user/{userId}/events")
-        public List<Event> getEventsByUserId(@PathVariable Long userId) {
-            return eventService.getEventsByUserId(userId);
+    @GetMapping("/associated/{userid}")
+        public List<Event> getEventsByUserId(@PathVariable("userid") Long userid) {
+            return eventService.getEventsByUserId(userid);
     }
     @PutMapping("/{id}/increment-participants")
     public ResponseEntity<Event> incrementParticipants(@PathVariable("id") Long id) {
