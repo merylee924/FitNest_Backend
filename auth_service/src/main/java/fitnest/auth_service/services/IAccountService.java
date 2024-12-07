@@ -12,4 +12,7 @@ public interface IAccountService {
     ResponseEntity<Account> findAccountByUsername(String email);
 
     ResponseEntity<List<Account>> retrieveAllAccounts();
+    ResponseEntity<?> updateUsername(Long accountId, String newUsername);
+
+    ResponseEntity<?> updateEmail(Long accountId, String newEmail);
 }

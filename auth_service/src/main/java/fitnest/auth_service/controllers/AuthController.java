@@ -41,11 +41,10 @@ public class AuthController {
     @PostMapping("/send-verification-email")
     public ResponseEntity<?> sendVerificationEmail(@RequestBody Map<String, String> request) {
         String email = request.get("email");
-        System.out.println(email);
-        String token = "jhhhh";
+        String code = request.get("code");
 
         try {
-            mailService.sendVerificationEmail(email, token);
+            mailService.sendVerificationEmail(email, code);
             Map<String, String> response = new HashMap<>();
             response.put("message", "Verification email sent successfully");
             return ResponseEntity.ok(response);
@@ -53,7 +52,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email: " + e.getMessage());
         }
     }
-
 
 
     @PostMapping("/check")

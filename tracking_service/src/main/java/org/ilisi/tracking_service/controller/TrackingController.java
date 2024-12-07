@@ -1,22 +1,26 @@
 package org.ilisi.tracking_service.controller;
 
-import lombok.RequiredArgsConstructor;
+import org.ilisi.tracking_service.entities.Tracking;
 import org.ilisi.tracking_service.service.TrackingService;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/tracking")
-@RequiredArgsConstructor
+@RequestMapping("/tracking")
 public class TrackingController {
 
-    private final TrackingService trackingService;
+    @Autowired
+    private TrackingService service;
 
-    @GetMapping("/{trackingId}/progression")
-    public ResponseEntity<Map<String, Object>> getProgression(@PathVariable Long trackingId) {
-        Map<String, Object> progressData = trackingService.getParticipantProgression(trackingId);
-        return ResponseEntity.ok(progressData);
+    @PostMapping
+    public Tracking saveTrackingData(@RequestBody Tracking tracking) {
+        return service.saveTrackingData(tracking);
+    }
+
+    @GetMapping("/{eventId}")
+    public List<Tracking> getTrackingData(@PathVariable int eventId) {
+        return service.getTrackingDataByEventId(eventId);
     }
 }

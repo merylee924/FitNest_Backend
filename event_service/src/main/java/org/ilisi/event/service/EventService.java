@@ -12,8 +12,14 @@ import org.ilisi.event.repository.EventRepository;
 import org.ilisi.event.repository.SportCategoryRepository;
 import org.ilisi.event.model.Location;
 import org.ilisi.event.model.Route;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -225,6 +231,42 @@ public class EventService {
         } else {
             throw new IllegalArgumentException("Event not found with id: " + id);
         }
+    }
+
+    private Point createUserLocation(double lon, double lat) {
+        GeometryFactory geometryFactory = new GeometryFactory();
+        Coordinate coordinate = new Coordinate(lon, lat);
+        return geometryFactory.createPoint(coordinate);
+    }
+    private double parseRadius(String radius) {
+        // Nettoyer la chaîne et supprimer les espaces inutiles
+        radius = radius.trim().toLowerCase();
+
+        try {
+            // Vérifier si la chaîne contient "km"
+            if (radius.endsWith("km")) {
+                // Extraire la partie numérique et convertir de kilomètres à mètres
+                return Double.parseDouble(radius.replace("km", "").trim()) * 1000;
+            }
+
+            // Si la chaîne est au format uniquement numérique, l'interpréter en mètres
+            return Double.parseDouble(radius);
+        } catch (NumberFormatException e) {
+            // Lever une exception si le format est incorrect
+            throw new IllegalArgumentException("Invalid radius format. Expected format: '150 km' or numeric value in meters.");
+        }
+    }
+
+    public List<Event> getNearbyEvents(double latitude, double longitude, String radius) {
+        // Convertir le rayon en une valeur numérique
+        Double rad = parseRadius(radius);
+
+        if (rad <= 0) {
+            throw new IllegalArgumentException("Radius must be greater than zero.");
+        }
+
+        // Appeler le repository avec la distance numérique
+        return eventRepository.findNearbyEvents(latitude, longitude, rad);
     }
 
 }

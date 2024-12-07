@@ -83,9 +83,11 @@ public class UserService implements IUserService {
         if (updatedUser.getLastName() != null) {
             user.setLastName(updatedUser.getLastName());
         }
-
         if (updatedUser.getPhoneNumber() != null) {
             user.setPhoneNumber(updatedUser.getPhoneNumber());
+        }
+        if (updatedUser.getDateBirth() != null) {
+            user.setDateBirth(updatedUser.getDateBirth());
         }
         if (updatedUser.getProfilePicture() != null) {
             user.setProfilePicture(updatedUser.getProfilePicture());
@@ -96,12 +98,10 @@ public class UserService implements IUserService {
         if (updatedUser.getDescription() != null) {
             user.setDescription(updatedUser.getDescription());
         }
-        // Vous pouvez ajouter d'autres champs à mettre à jour selon vos besoins
 
         // Sauvegarde les modifications dans la base de données
         return userRepo.save(user);
     }
-
     @Nullable
     @Override
     public User addUser(@NotNull User user) {

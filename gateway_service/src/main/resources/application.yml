@@ -58,6 +58,11 @@ spring:
           predicates:
             - Path=/event-service/api/events/filter/{category}/{dateFilter}/{partOfDay}
             - Method=GET
+        - id: event-service-nearby-events
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/nearby?latitude=$latitude&longitude=$longitude&radius=$radius
+            - Method=GET
         - id: event-service-event-user
           uri: lb://event-service
           predicates:

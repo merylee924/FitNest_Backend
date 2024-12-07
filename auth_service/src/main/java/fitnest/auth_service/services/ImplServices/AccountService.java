@@ -34,4 +34,25 @@ public class AccountService implements IAccountService {
         List<Account> users = accountRepo.findAll();
         return ResponseEntity.ok(users);
     }
+    @Override
+    public ResponseEntity<?> updateUsername(Long accountId, String newUsername) {
+        Account account = accountRepo.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found with ID: " + accountId));
+        account.setUsername(newUsername); // Mise à jour du nom d'utilisateur
+        accountRepo.save(account); // Sauvegarde dans la base de données
+
+        return ResponseEntity.ok("Username updated successfully.");
+
+    }
+
+    @Override
+    public ResponseEntity<?> updateEmail(Long accountId, String newEmail) {
+        Account account = accountRepo.findById(accountId)
+                .orElseThrow(() -> new RuntimeException("Account not found with ID: " + accountId));
+        account.setEmail(newEmail); // Mise à jour de l'email
+        accountRepo.save(account); // Sauvegarde dans la base de données
+
+        return ResponseEntity.ok("Email updated successfully.");
+
+    }
 }
