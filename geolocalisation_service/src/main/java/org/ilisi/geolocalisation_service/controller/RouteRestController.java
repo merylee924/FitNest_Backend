@@ -55,4 +55,14 @@ public class RouteRestController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{routeId}/distance")
+    public ResponseEntity<Double> calculateDistance(
+            @PathVariable Long routeId,
+            @RequestParam Double latitude,
+            @RequestParam Double longitude) {
+        // Appeler le service pour calculer la distance
+        Double distance = routeService.calculateDistanceToRoute(routeId, latitude, longitude);
+        return ResponseEntity.ok(distance);
+    }
 }

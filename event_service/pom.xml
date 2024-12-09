@@ -55,7 +55,6 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -63,7 +62,7 @@
 		<dependency>
 			<groupId>org.locationtech.jts</groupId>
 			<artifactId>jts-core</artifactId>
-			<version>1.18.2</version> <!-- Utilisez la version la plus récente -->
+			<version>1.18.2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

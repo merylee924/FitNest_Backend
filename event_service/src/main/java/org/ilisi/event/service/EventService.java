@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EventService {
@@ -29,7 +30,6 @@ public class EventService {
     private final SportCategoryRepository sportCategoryRepository;
     private final GeolocationFeignClient geoFeignClient;
     private final AuthServiceFeignClient authServiceClient;
-
 
     @Autowired
     public EventService(EventRepository eventRepository, SportCategoryRepository sportCategoryRepository, GeolocationFeignClient geoFeignClient, AuthServiceFeignClient authServiceClient) {

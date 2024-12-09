@@ -53,6 +53,11 @@ spring:
           predicates:
             - Path=/event-service/api/events/filterByCategoryAndDate/{categoryName}/{filter}
             - Method=GET
+        - id: event-service-filter-by-category-and-date-and-partDay-route
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/filter/{category}/{dateFilter}/{partOfDay}
+            - Method=GET
         - id: event-service-event-user
           uri: lb://event-service
           predicates:
@@ -233,10 +238,25 @@ spring:
             - Path=/api/participations/event/{eventId}
             - Method=GET
 
+        #notifications rootes
+        - id: notifications-associate-FcmToken-to-client
+          uri: lb://notif-service
+          predicates:
+              - Path=/api/fcm-token/associate
+              - Method=POST
+        - id: notifications-get-FcmToken-by-client
+          uri: lb://notif-service
+          predicates:
+            - Path=/api/fcm-token/get/{userid}
+            - Method=GET
+        - id: notifications-store-notif
+          uri: lb://notif-service
+          predicates:
+            - Path=/api/notifs/post/notifications
+            - Method=POST
 
 server:
   port: 8888
-  address: 0.0.0.0
 
 eureka:
   client:

@@ -11,6 +11,7 @@ import org.ilisi.event.model.Route;
 import org.ilisi.event.model.User;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
@@ -97,5 +98,8 @@ public class Event {
 
         eventDto.setOrganizerId(this.organizerId);
         return eventDto;
+    }
+    public LocalDateTime getEventStartDateTime() {
+        return LocalDateTime.of(startDate, startTime);
     }
 }
