@@ -26,7 +26,7 @@ public class NotifController {
             return ResponseEntity.status(500).build();
         }
     }
-    @PostMapping("/post/notifications")
+    @PostMapping("/post")
     public ResponseEntity<Void> storeNotification(@RequestBody NotifRequest request) {
        try {
            notificationService.storeNotification(request);
