@@ -1,6 +1,9 @@
 package org.ilisi.event.repository;
 
 import org.ilisi.event.entities.Event;
+import org.locationtech.jts.geom.Point;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,6 +36,23 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("SELECT e FROM Event e WHERE e.startDate >= :startDate AND e.endDate <= :endDate")
     List<Event> findByDateRange(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
     List<Event> findByOrganizerId(Long organizerId);
+
+    @Query(value = """
+    SELECT e.*
+    FROM event e
+    JOIN location l ON e.location_id = l.id
+    WHERE ST_DWithin(
+        l.coordinates::geography,
+        ST_SetSRID(ST_Point(:longitude, :latitude), 4326)::geography,
+        :radius
+    )
+    """, nativeQuery = true)
+    List<Event> findNearbyEvents(
+            @Param("latitude") double latitude,
+            @Param("longitude") double longitude,
+            @Param("radius") double radius
+    );
+
 
 
 }

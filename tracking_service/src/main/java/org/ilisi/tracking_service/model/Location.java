@@ -10,7 +10,6 @@ public class Location {
     private String locationName;
     private double latitude;
     private double longitude;
-    private Map<String, Double> coordinatesAsMap;
 
 }
 

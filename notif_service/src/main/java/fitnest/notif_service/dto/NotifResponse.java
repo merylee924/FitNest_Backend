@@ -1,25 +1,10 @@
 package fitnest.notif_service.dto;
 
-import fitnest.notif_service.entities.NotifType;
-
-public class NotifRequest {
-
+public class NotifResponse {
     private Long recipient;
     private String type;
     private String content;
     private String token;
-
-    public NotifRequest() {}
-
-    // Constructor with parameters
-    public NotifRequest(Long recipient, String type, String content, String token) {
-        this.recipient = recipient;
-        this.type = type;
-        this.content = content;
-        this.token = token;
-    }
-
-    // Getter and Setter for recipient
     public Long getRecipient() {
         return recipient;
     }
@@ -28,7 +13,6 @@ public class NotifRequest {
         this.recipient = recipient;
     }
 
-    // Getter and Setter for type
     public String getType() {
         return type;
     }
@@ -37,7 +21,6 @@ public class NotifRequest {
         this.type = type;
     }
 
-    // Getter and Setter for content
     public String getContent() {
         return content;
     }
@@ -46,7 +29,6 @@ public class NotifRequest {
         this.content = content;
     }
 
-    // Getter and Setter for token
     public String getToken() {
         return token;
     }

@@ -3,6 +3,7 @@ package org.ilisi.event.controller;
 import org.ilisi.event.entities.Event;
 import org.ilisi.event.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -201,6 +202,22 @@ public class EventController {
                .collect(Collectors.toList());
         return ResponseEntity.ok(filteredEvents);
     }
+    @GetMapping("/nearby")
+    public ResponseEntity<List<Event>> getNearbyEvents(
+            @RequestParam double latitude,
+            @RequestParam double longitude,
+            @RequestParam String radius) {
+        radius = radius.trim().replace(" ", "");  // Enlever les espaces superflus
+
+        // Appeler la méthode de service pour obtenir les événements proches
+        List<Event> events = eventService.getNearbyEvents(latitude, longitude, radius);
+
+        // Retourner la réponse avec les événements trouvés
+        return ResponseEntity.ok(events);
+    }
+
+
+
 
 }
 

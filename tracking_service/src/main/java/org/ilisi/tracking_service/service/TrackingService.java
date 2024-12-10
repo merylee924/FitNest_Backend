@@ -1,25 +1,25 @@
 package org.ilisi.tracking_service.service;
 
-import lombok.RequiredArgsConstructor;
+import org.ilisi.tracking_service.entities.Tracking;
 import org.ilisi.tracking_service.repository.TrackingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class TrackingService {
 
-    private final TrackingRepository trackingRepository;
+    @Autowired
+    private TrackingRepository repository;
 
-    public Map<String, Object> getParticipantProgression(Long trackingId) {
-        Double distanceToRoute = trackingRepository.getDistanceToRoute(trackingId);
-        Double progression = trackingRepository.getProgression(trackingId);
+    public Tracking saveTrackingData(Tracking tracking) {
+        return repository.save(tracking);
+    }
 
-        Map<String, Object> progressData = new HashMap<>();
-        progressData.put("distanceToRoute", distanceToRoute);
-        progressData.put("progressionPercentage", (progression != null) ? progression * 100 : 0);
-        return progressData;
+    public List<Tracking> getTrackingDataByEventId(int eventId) {
+        return repository.findAll().stream()
+                .filter(tracking -> tracking.getEventId() == eventId)
+                .toList();
     }
 }
