@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Service
-public class NotificationStorageService {
+public class NotificationStorageService implements INotificationStorageServicee {
     
     private final NotifRepo notificationRepository;
 

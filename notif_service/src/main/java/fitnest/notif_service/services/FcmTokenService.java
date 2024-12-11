@@ -6,8 +6,10 @@ import fitnest.notif_service.repos.FcmTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class FcmTokenService {
+public class FcmTokenService implements IFcmTokenService{
 
     @Autowired
     private FcmTokenRepository fcmTokenRepository;
@@ -25,5 +27,9 @@ public class FcmTokenService {
 
     public FcmToken getTokenByUser(Long userId) {
         return fcmTokenRepository.findByUserid(userId);
+    }
+
+    public List<FcmToken> getAll() {
+        return fcmTokenRepository.findAll();
     }
 }

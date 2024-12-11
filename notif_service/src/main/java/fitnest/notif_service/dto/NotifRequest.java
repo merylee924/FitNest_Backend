@@ -8,6 +8,15 @@ public class NotifRequest {
     private String type;
     private String content;
     private String token;
+    private Long eventid;
+
+    public Long getEventid() {
+        return eventid;
+    }
+
+    public void setEventid(Long eventid) {
+        this.eventid = eventid;
+    }
 
     public NotifRequest() {}
 

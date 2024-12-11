@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("fcmTokens")
 public class FcmToken {
     @Id
-    private ObjectId id;
+    private String id;
     private Long userid;
     private String token;
 

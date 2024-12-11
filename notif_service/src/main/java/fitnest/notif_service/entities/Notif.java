@@ -10,12 +10,14 @@ import java.time.LocalDateTime;
 public class Notif {
 
     @Id
-    private ObjectId id;
+    private String id;
     private Long recipient;
     private NotifType type;
     private String content;
     private LocalDateTime timestamp;
     private String token;
+    private Long eventid;
+
     public Notif() {
     }
 
@@ -25,14 +27,6 @@ public class Notif {
         this.content = content;
         this.timestamp = timestamp;
         this.token = token;
-    }
-
-    public ObjectId getId() {
-        return id;
-    }
-
-    public void setId(ObjectId id) {
-        this.id = id;
     }
 
     public Long getRecipient() {

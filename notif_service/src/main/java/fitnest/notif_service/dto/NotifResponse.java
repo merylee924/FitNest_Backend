@@ -5,6 +5,17 @@ public class NotifResponse {
     private String type;
     private String content;
     private String token;
+    private Long eventid;
+
+    public Long getEventid() {
+        return eventid;
+    }
+
+    public void setEventid(Long eventid) {
+        this.eventid = eventid;
+    }
+
+
     public Long getRecipient() {
         return recipient;
     }
