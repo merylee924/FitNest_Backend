@@ -254,10 +254,25 @@ spring:
             - Path=/api/participations/user/{userId}/accepted_refused
             - Method=GET
 
+        #notifications rootes
+        - id: notifications-associate-FcmToken-to-client
+          uri: lb://notif-service
+          predicates:
+              - Path=/api/fcm-token/associate
+              - Method=POST
+        - id: notifications-get-FcmToken-by-client
+          uri: lb://notif-service
+          predicates:
+            - Path=/api/fcm-token/get/{userid}
+            - Method=GET
+        - id: notifications-store-notif
+          uri: lb://notif-service
+          predicates:
+            - Path=/api/notifs/post/notifications
+            - Method=POST
 
 server:
   port: 8888
-  address: 0.0.0.0
 
 eureka:
   client:

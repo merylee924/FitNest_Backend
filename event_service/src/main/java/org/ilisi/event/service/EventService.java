@@ -37,7 +37,6 @@ public class EventService {
     private final GeolocationFeignClient geoFeignClient;
     private final AuthServiceFeignClient authServiceClient;
 
-
     @Autowired
     public EventService(EventRepository eventRepository, SportCategoryRepository sportCategoryRepository, GeolocationFeignClient geoFeignClient, AuthServiceFeignClient authServiceClient) {
         this.eventRepository = eventRepository;
@@ -209,8 +208,31 @@ public class EventService {
         return event;
     }
     public List<Event> getEventsByUserId(Long userId) {
-        List<Event> event = eventRepository.findByOrganizerId(userId);
-        return enrichEventsWithDetails(event);
+
+        List<Event> events = eventRepository.findByOrganizerId(userId);
+
+        // Charger les détails de chaque événement
+        events.forEach(event -> {
+            if (event.getLocationId() != null) {
+                try {
+                    Location location = geoFeignClient.getLocationById(event.getLocationId());
+                    event.setLocation(location);
+                } catch (Exception e) {
+                    System.out.println("Erreur lors de la récupération de la localisation pour l'événement " + event.getId() + ": " + e.getMessage());
+                }
+            }
+
+            if (event.getRouteId() != null) {
+                try {
+                    Route route = geoFeignClient.getRouteById(event.getRouteId());
+                    event.setRoute(route);
+                } catch (Exception e) {
+                    System.out.println("Erreur lors de la récupération de la route pour l'événement " + event.getId() + ": " + e.getMessage());
+                }
+            }
+        });
+
+        return enrichEventsWithDetails(events);
     }
     public Event incrementParticipants(Long id) {
         Optional<Event> eventOpt = eventRepository.findById(id);

@@ -52,8 +52,6 @@ public class AuthController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error sending email: " + e.getMessage());
         }
     }
-
-
     @PostMapping("/check")
     public ResponseEntity<String> checkIfUserOrEmailExists(@RequestBody UserCheckRequest request) {
         try {
@@ -91,7 +89,6 @@ public class AuthController {
             );
         }
     }
-
 
     @PostMapping("/request-password-reset")
     public ResponseEntity<AuthenticationResponse> requestPasswordReset(@RequestBody PasswordResetRequest request) {

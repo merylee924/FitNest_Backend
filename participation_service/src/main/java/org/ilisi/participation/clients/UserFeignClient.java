@@ -10,7 +10,6 @@ import java.util.List;
 
 @FeignClient(name = "auth-service")
 public interface UserFeignClient {
-
     @GetMapping("/user/getUserById/{userId}")
     User getUserById(@PathVariable("userId") Long userId);
 

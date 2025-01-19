@@ -70,6 +70,8 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
     @GetMapping("/filterByDate/{filter}")
     public ResponseEntity<List<Event>> getEventsByDateFilter(@PathVariable String filter) {
         List<Event> events;

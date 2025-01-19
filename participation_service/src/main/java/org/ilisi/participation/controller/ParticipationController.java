@@ -25,7 +25,7 @@ public class ParticipationController {
     @PostMapping("/createParticipation")
     public ResponseEntity<String> createParticipation(@RequestParam Long userId, @RequestParam Long eventId) {
         try {
-            Participation participation = participationService.createParticipation(userId, eventId);
+            participationService.createParticipation(userId, eventId);
             return ResponseEntity.ok("Participation created successfully");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User already participates in this event.");
@@ -33,7 +33,6 @@ public class ParticipationController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Event is full.");
         }
     }
-
     @GetMapping("/getDetailParticipation/{id}")
     public ResponseEntity<Participation> getParticipationDetails(@PathVariable Long id) {
         Participation participation = participationService.getParticipationDetails(id);

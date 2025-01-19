@@ -3,7 +3,10 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-@Entity @Getter @NoArgsConstructor
+@Entity
+@Table(name = "sports")
+@Getter
+@NoArgsConstructor
 @Setter
 public class SportCategory {
 
@@ -13,8 +16,9 @@ public class SportCategory {
 
     private String name;
 
-    @Column(columnDefinition = "boolean default false")
+    @Column(columnDefinition = "boolean default false" ,name = "requiresroute")
     private boolean requiresRoute = false;
+    @Column(name = "iconname")
     private String iconName;
 
 }

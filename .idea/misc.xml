@@ -23,15 +23,21 @@
         <option value="$PROJECT_DIR$/../Fitnest_Project/pom.xml" />
         <option value="$PROJECT_DIR$/geolocalisation_service/tracking_service/pom.xml" />
         <option value="$PROJECT_DIR$/tracking_service/pom.xml" />
+        <option value="$PROJECT_DIR$/notif_service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/config_service/pom.xml" />
         <option value="$PROJECT_DIR$/../Fitnest_Project/pom.xml" />
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_20" default="true" project-jdk-name="corretto-20" project-jdk-type="JavaSDK">
+  <component name="PWA">
+    <option name="enabled" value="true" />
+    <option name="wasEnabledAtLeastOnce" value="true" />
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="corretto-20" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
