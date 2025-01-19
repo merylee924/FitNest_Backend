@@ -51,6 +51,11 @@ public class EventController {
         return event.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+    @GetMapping("/organizers/{organizerId}/events")
+    public ResponseEntity<List<Event>> getEventsByOrganizerId(@PathVariable Long organizerId) {
+        List<Event> events = eventService.getEventsByUserId(organizerId);
+        return ResponseEntity.ok(events);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable Long id) {
