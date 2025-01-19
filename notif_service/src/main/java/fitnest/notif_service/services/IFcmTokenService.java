@@ -9,6 +9,4 @@ public interface IFcmTokenService {
     public FcmToken associateTokenWithUser(TokenRequest request  ) ;
     public FcmToken getTokenByUser(Long userId);
     public List<FcmToken> getAll();
-
-
 }
