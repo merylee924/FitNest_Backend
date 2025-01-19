@@ -114,6 +114,19 @@ public class ParticipationService {
 
         return participations;
     }
+    public List<Participation> getParticipationsByUserId(Long userId) {
+        List<Participation> participations = participationRepository.findByUserId(userId);
+
+        for (Participation participation : participations) {
+            User user = userFeignClient.getUserById(participation.getUserId());
+            participation.setUser(user);
+
+            Event event = eventFeignClient.getEventById(participation.getEventId());
+            participation.setEvent(event);
+        }
+
+        return participations;
+    }
 
 
 

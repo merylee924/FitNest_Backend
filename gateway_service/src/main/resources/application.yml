@@ -84,6 +84,7 @@ spring:
               - Path=/event-service/api/events/{id}/decrement-participants
               - Method=PUT
 
+
         # SportCategory Service Routes
         - id: category-service-get-categories
           uri: lb://event-service
@@ -115,6 +116,11 @@ spring:
           predicates:
             - Path=/event-service/api/categories/delete/{id}
             - Method=DELETE
+        - id: event-by-organizer-id
+          uri: lb://event-service
+          predicates:
+            - Path=/event-service/api/events/organizers/{organizerId}/events
+            - Method=GET
 
         # Geolocation Routes
         - id: geolocation-service-create-location
@@ -241,6 +247,11 @@ spring:
           uri: lb://participation-service
           predicates:
             - Path=/api/participations/event/{eventId}
+            - Method=GET
+        - id: participation-accepted-refused
+          uri: lb://participation-service
+          predicates:
+            - Path=/api/participations/user/{userId}/accepted_refused
             - Method=GET
 
 

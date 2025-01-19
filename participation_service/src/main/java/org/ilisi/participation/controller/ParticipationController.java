@@ -54,17 +54,24 @@ public class ParticipationController {
         participationService.acceptParticipation(userId, eventId);
         return ResponseEntity.noContent().build();
     }
+
     @GetMapping("/user/{userId}/participations")
     public ResponseEntity<List<Event>> getParticipationsForEvent(@PathVariable Long userId) {
         List<Event> events = participationService.getParticipantionEventsByUserId(userId);
         return ResponseEntity.ok(events);
     }
 
+    @GetMapping("/user/{userId}/accepted_refused")
+    public ResponseEntity<List<Participation>> getResponses(@PathVariable Long userId) {
+        List<Participation> participation = participationService.getParticipationsByUserId(userId);
+        return ResponseEntity.ok(participation);
+    }
     @GetMapping("/event/{eventId}")
     public ResponseEntity<List<Participation>> getParticipationsByEventId(@PathVariable Long eventId) {
         List<Participation> participations = participationService.getParticipationsByEventId(eventId);
         return ResponseEntity.ok(participations);
     }
+
 
 }
 
