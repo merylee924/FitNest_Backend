@@ -1,6 +1,5 @@
 package org.ilisi.event.controller;
 
-import org.ilisi.event.dtos.EventDto;
 import org.ilisi.event.entities.Event;
 import org.ilisi.event.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/events")
 public class EventController {
-
     private final EventService eventService;
 
     @Autowired
@@ -40,7 +38,6 @@ public class EventController {
         return ResponseEntity.ok(events);
     }
 
-    // Fetch event with additional details
     @GetMapping("/{id}/details")
     public ResponseEntity<Event> getEventWithDetails(@PathVariable Long id) {
         Event event = eventService.getEventWithDetails(id);
@@ -48,7 +45,6 @@ public class EventController {
         return ResponseEntity.ok(event);
     }
 
-    // Fetch event with basic details
     @GetMapping("/{id}/basic")
     public ResponseEntity<Event> getEventById(@PathVariable Long id) {
         Optional<Event> event = eventService.getEventById(id);
@@ -70,7 +66,6 @@ public class EventController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
 
     @GetMapping("/filterByDate/{filter}")
     public ResponseEntity<List<Event>> getEventsByDateFilter(@PathVariable String filter) {
@@ -128,6 +123,7 @@ public class EventController {
 
         return ResponseEntity.ok(filteredEvents);
     }
+
     @GetMapping("/byPartOfDay/{partOfDay}")
     public ResponseEntity<List<Event>> getEventsByPartOfDay(@PathVariable String partOfDay) {
         try {
@@ -140,10 +136,12 @@ public class EventController {
             return ResponseEntity.status(500).body(null);
         }
     }
+
     @GetMapping("/user/{userId}/events")
         public List<Event> getEventsByUserId(@PathVariable Long userId) {
             return eventService.getEventsByUserId(userId);
     }
+
     @PutMapping("/{id}/increment-participants")
     public ResponseEntity<Event> incrementParticipants(@PathVariable("id") Long id) {
         try {
@@ -157,6 +155,7 @@ public class EventController {
             return ResponseEntity.status(500).body(null);
         }
     }
+
     @PutMapping("/{id}/decrement-participants")
     public ResponseEntity<Event> DecrementParticipants(@PathVariable("id") Long id) {
         try {
@@ -170,13 +169,13 @@ public class EventController {
             return ResponseEntity.status(500).body(null);
         }
     }
+
     @GetMapping("/filter/{categoryName}/{filter}/{partDay}")
     public ResponseEntity<List<Event>> getEventsByCategoryAndDateFilterAndPartDay(
             @PathVariable("categoryName") String categoryName,
             @PathVariable("filter") String filter,
             @PathVariable("partDay") String partDay)
     {
-
         List<Event> eventsByCategory = eventService.getEventsByCategoryName(categoryName);
         List<Event> filteredEvents;
         switch (filter.toLowerCase()) {
