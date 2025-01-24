@@ -28,12 +28,13 @@ public class NotifController {
     }
     @PostMapping("/post")
     public ResponseEntity<Void> storeNotification(@RequestBody NotifRequest request) {
-       try {
-           notificationService.storeNotification(request);
-           return ResponseEntity.status(HttpStatus.CREATED).build();
-       }catch (Exception e){
-           return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-       }
+          try {
+            System.out.println("Received Request: " + request);
+            notificationService.storeNotification(request);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
-
 }
